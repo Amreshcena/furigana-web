@@ -1,3 +1,4 @@
+
 # furigana.srt — web app
 
 A small website that does what the local `srt_furigana.py` script does, but
@@ -109,3 +110,4 @@ Render-specific beyond `render.yaml` (which is ignored elsewhere):
   the first visitor after a cold start isn't stuck waiting on it — on
   Render's free tier that startup cost is instead paid once per spin-up
   after idling.
+# furigana-web
