@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Furigana for .srt — add readings to Japanese subtitles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Old+Mincho:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">字</span>
+    <span class="brand-name">furigana<span class="brand-dim">.srt</span></span>
+  </div>
+  <a class="cli-link" href="#cli">Prefer the command line?</a>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Kanji, read aloud —<br>right inside your subtitles.</h1>
+      <p class="lede">
+        Drop in a Japanese .srt file. Get back the same file with every kanji word
+        tagged for furigana, grouped the way a reader actually sees words —
+        not chopped at every grammar boundary.
+      </p>
+    </div>
+
+    <div class="player" aria-hidden="true">
+      <div class="player-frame">
+        <div class="player-glow"></div>
+        <p class="player-subtitle" id="demo-subtitle">お前を救ってみせる</p>
+      </div>
+      <div class="player-bar">
+        <span class="player-icon">▶</span>
+        <span class="player-icon">⏭</span>
+        <span class="player-time">02:52</span>
+        <div class="player-scrub"><div class="player-scrub-fill"></div></div>
+        <span class="player-time">50:01</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="examples" aria-label="Example transformations">
+    <div class="example-chip">
+      <span class="before">異<span class="b-ruby">い</span>世界<span class="b-ruby">せかい</span></span>
+      <span class="arrow">→</span>
+      <span class="after">異世界<span class="a-ruby">いせかい</span></span>
+    </div>
+    <div class="example-chip">
+      <span class="before">中世<span class="b-ruby">ちゅうせい</span>風<span class="b-ruby">ふう</span></span>
+      <span class="arrow">→</span>
+      <span class="after">中世風<span class="a-ruby">ちゅうせいふう</span></span>
+    </div>
+    <div class="example-chip">
+      <span class="before">救<span class="b-ruby">すく</span>ってみせる</span>
+      <span class="arrow">→</span>
+      <span class="after">救ってみせる<span class="a-ruby">すくってみせる</span></span>
+    </div>
+  </section>
+
+  <section class="upload-section" id="upload">
+    <div class="upload-card">
+
+      <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose .srt files to upload">
+        <div class="dropzone-icon">
+          <svg viewBox="0 0 48 48" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 30V8M24 8l-8 8M24 8l8 8"/>
+            <path d="M8 30v6a4 4 0 0 0 4 4h24a4 4 0 0 0 4-4v-6"/>
+          </svg>
+        </div>
+        <p class="dropzone-title">Drop .srt files here</p>
+        <p class="dropzone-sub">or click to browse — a whole season works too</p>
+        <input type="file" id="file-input" accept=".srt" multiple hidden>
+      </div>
+
+      <ul class="file-list" id="file-list"></ul>
+
+      <button class="process-btn" id="process-btn" disabled>Add furigana</button>
+
+      <p class="status" id="status" role="status"></p>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>How it works</h2>
+    <ol class="how-list">
+      <li>
+        <span class="how-num">1</span>
+        <div>
+          <h3>Upload</h3>
+          <p>One file, several files, or every episode of a season at once.</p>
+        </div>
+      </li>
+      <li>
+        <span class="how-num">2</span>
+        <div>
+          <h3>Segment &amp; read</h3>
+          <p>Each line is parsed at the word level, so 調査兵団 and 救ってみせる
+             come back as single units instead of being split mid-word.</p>
+        </div>
+      </li>
+      <li>
+        <span class="how-num">3</span>
+        <div>
+          <h3>Download</h3>
+          <p>Get the same .srt back with 漢字[かんじ] tags, ready for Memento or Migaku.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="cli" id="cli">
+    <h2>Prefer to run it yourself?</h2>
+    <p>The same engine behind this page runs from the command line, no upload needed —
+       good for large batches or if you'd rather keep files local.</p>
+    <pre class="code-block"><code>pip install sudachipy sudachidict_core jaconv
+python srt_furigana.py ./season1/</code></pre>
+  </section>
+
+</main>
+
+<footer>
+  <p>Processing happens on the server — files aren't stored after your download finishes.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+flask>=3.1,<4
+gunicorn>=22,<24
+sudachipy>=0.6.8
+sudachidict_core>=20240109
+jaconv>=0.5,<1
